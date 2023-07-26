@@ -1,1 +1,1 @@
-Project representing menu from known restaurant
+Project representing menu from known restaurant. This project is to train interfaces

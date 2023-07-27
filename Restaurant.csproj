@@ -9,8 +9,18 @@
 
   <ItemGroup>
     <None Remove="Interfaces\" />
+    <None Remove="Meals\" />
+    <None Remove="Meals\Pizza\" />
+    <None Remove="Meals\Pasta\" />
+    <None Remove="Meals\Appetizer\" />
+    <None Remove="Meals\Soup\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
+    <Folder Include="Meals\" />
+    <Folder Include="Meals\Pizza\" />
+    <Folder Include="Meals\Pasta\" />
+    <Folder Include="Meals\Appetizer\" />
+    <Folder Include="Meals\Soup\" />
   </ItemGroup>
 </Project>

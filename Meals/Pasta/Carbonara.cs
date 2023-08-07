@@ -1,12 +1,12 @@
 ﻿using System;
 namespace Restaurant.Meals.Pasta
 {
-    public class Carbonara : Restaurant.Interfaces.IPasta
+    public class Carbonara : Dish
     {
-        public string NameOfDish { get; set; } = "Carbonara";
-        public bool IsVegan { get; set; } = false;
-        public decimal Prize { get; set; } = (decimal)23.99;
-        public List<string> Ingredients { get; set; }
+        public override string NameOfDish { get; set; } = "Carbonara";
+        public override bool IsVegan { get; set; } = false;
+        public override decimal Prize { get; set; } = (decimal)23.99;
+        public override List<string> Ingredients { get; set; }
         public string TypeOfPasta { get; set; } = "";
 
         public Carbonara()
@@ -16,17 +16,11 @@ namespace Restaurant.Meals.Pasta
             Ingredients.Add("water");
         }
 
-        public void PrepareADish()
+        public override void PrepareADish()
         {
             Console.WriteLine("Carbonara prepared");
         }
-        public void ShowIngredients()
-        {
-            foreach (string element in Ingredients)
-            {
-                Console.Write($"{element} ");
-            }
-        }
+
     }
 }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Restaurant.Meals.Pizza
 {
-    public class Napoletana : Dish
+    public class Napoletana : Dish<int>
     {
         public override string NameOfDish { get; set; } = "Capricciosa";
         public override bool IsVegan { get; set; } = false;
@@ -9,6 +9,7 @@ namespace Restaurant.Meals.Pizza
         public override List<string> Ingredients { get; set; }
         public int SizeInCm { get; set; } = 32;
         public string TypeOfPizza { get; set; } = "";
+        public override int Portion { get; set; } = 100;
 
         public Napoletana()
         {

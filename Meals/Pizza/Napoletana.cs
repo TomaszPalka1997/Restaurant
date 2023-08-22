@@ -7,9 +7,7 @@ namespace Restaurant.Meals.Pizza
         public override bool IsVegan { get; set; } = false;
         public override decimal Prize { get; set; } = (decimal)20.99;
         public override List<string> Ingredients { get; set; }
-        public int SizeInCm { get; set; } = 32;
-        public string TypeOfPizza { get; set; } = "";
-        public override int Portion { get; set; } = 100;
+        public override int Portion { get; set; } = 32;
 
         public Napoletana()
         {

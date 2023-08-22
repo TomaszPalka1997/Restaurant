@@ -3,10 +3,7 @@ using Restaurant.Meals.Pizza;
 
 Console.WriteLine("Hello in the restaurant");
 
-List<Restaurant.Interfaces.IDish> dishes = new List<Restaurant.Interfaces.IDish>();
-
-//TomatoSoup tomatoSoup = new TomatoSoup();
-//Margherita margherita = new Margherita();
+var dishes = new List<Restaurant.Interfaces.IDish>();
 
 dishes.Add(new TomatoSoup());
 dishes.Add(new Margherita());

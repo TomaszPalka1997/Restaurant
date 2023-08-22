@@ -1,4 +1,6 @@
 ﻿using System;
+using Restaurant.Interfaces;
+
 namespace Restaurant.Meals.Soup
 {
     public class TomatoSoup : Dish<float>
@@ -16,10 +18,7 @@ namespace Restaurant.Meals.Soup
             Ingredients.Add("water");
         }
 
-        public override void PrepareADish()
-        {
-            Console.WriteLine("Tomato Soup prepared");
-        }
+
 
 
     }

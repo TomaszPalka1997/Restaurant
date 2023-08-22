@@ -3,15 +3,18 @@ using Restaurant.Meals.Pizza;
 
 Console.WriteLine("Hello in the restaurant");
 
-TomatoSoup tomatoSoup = new TomatoSoup();
+List<Restaurant.Interfaces.IDish> dishes = new List<Restaurant.Interfaces.IDish>();
 
-Margherita margherita = new Margherita();
+//TomatoSoup tomatoSoup = new TomatoSoup();
+//Margherita margherita = new Margherita();
 
-tomatoSoup.PrepareADish();
-tomatoSoup.ShowIngredients();
-margherita.ShowIngredients();
+dishes.Add(new TomatoSoup());
+dishes.Add(new Margherita());
 
-
+foreach (Restaurant.Interfaces.IDish dish in dishes)
+{
+    dish.ShowIngredients();
+}
 
 Console.ReadLine();
 

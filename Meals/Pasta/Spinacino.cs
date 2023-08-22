@@ -17,10 +17,7 @@ namespace Restaurant.Meals.Pasta
             Ingredients.Add("water");
         }
 
-        public override void PrepareADish()
-        {
-            Console.WriteLine("Spinacino prepared");
-        }
+
 
     }
 }

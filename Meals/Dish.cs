@@ -10,10 +10,14 @@ namespace Restaurant.Meals
         public abstract T Portion { get; set; }
 
 
-        public abstract void PrepareADish();
+
+        public void PrepareADish()
+        {
+            Console.WriteLine($"{NameOfDish} Prepared");
+        }
         public void ShowIngredients()
         {
-            Console.WriteLine("\n Ingredients: \n");
+            Console.Write($"\n Ingredients of {NameOfDish}: ");
             foreach (string element in Ingredients)
             {
                 Console.Write($"{element} ");
@@ -22,6 +26,7 @@ namespace Restaurant.Meals
 
         public Dish()
         {
+
         }
     }
 }

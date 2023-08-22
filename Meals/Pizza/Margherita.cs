@@ -18,12 +18,6 @@ namespace Restaurant.Meals.Pizza
             Ingredients.Add("water");
             Ingredients.Add("chease");
         }
-
-        public override void PrepareADish()
-        {
-            Console.WriteLine("Margherita prepared");
-        }
-
     }
 }
 

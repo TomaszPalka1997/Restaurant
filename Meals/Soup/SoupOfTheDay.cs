@@ -15,10 +15,6 @@ namespace Restaurant.Meals.Soup
             Ingredients.Add("tomato");
             Ingredients.Add("water");
         }
-        public override void PrepareADish()
-        {
-            Console.WriteLine("Soup of the day prepared");
-        }
 
     }
 }

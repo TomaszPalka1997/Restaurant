@@ -14,13 +14,15 @@ namespace Restaurant.Meals.Pizza
         public Capricciosa()
         {
             Ingredients = new List<string>();
+            SetIngradients();
+        }
+
+        public void SetIngradients()
+        {
             Ingredients.Add("tomato");
             Ingredients.Add("water");
         }
-        public override void PrepareADish()
-        {
-            Console.WriteLine("Capricciosa prepared");
-        }
+
 
     }
 }

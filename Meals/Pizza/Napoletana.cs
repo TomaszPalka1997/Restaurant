@@ -17,12 +17,6 @@ namespace Restaurant.Meals.Pizza
             Ingredients.Add("tomato");
             Ingredients.Add("water");
         }
-
-        public override void PrepareADish()
-        {
-            Console.WriteLine("Napoletana prepared");
-        }
-
     }
 }
 

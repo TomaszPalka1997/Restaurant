@@ -17,10 +17,7 @@ namespace Restaurant.Meals.Appetizer
             Ingredients.Add("water");
         }
 
-        public override void PrepareADish()
-        {
-            Console.WriteLine("Bolognese prepared");
-        }
+
 
     }
 }

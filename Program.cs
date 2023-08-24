@@ -13,6 +13,7 @@ while (true)
 
     dishes.Add(new TomatoSoup());
     dishes.Add(new Margherita());
+    dishes.Add(new Margherita());
 
     ShowIngredients(dishes);
     break;

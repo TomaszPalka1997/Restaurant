@@ -4,7 +4,7 @@ namespace Restaurant
     public class Settlement
     {
         private decimal wallet = 0;
-        private int guests;
+        private int guests = 0;
 
         public decimal Wallet
         {
@@ -16,7 +16,6 @@ namespace Restaurant
                     wallet += value;
                 }
             }
-
         }
         public Settlement()
         {

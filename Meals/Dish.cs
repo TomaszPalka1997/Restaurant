@@ -26,7 +26,7 @@ namespace Restaurant.Meals
 
         public Dish()
         {
-
+            PrepareADish();
         }
     }
 }

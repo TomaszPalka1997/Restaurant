@@ -61,6 +61,9 @@ namespace Restaurant
                     case 5:
                         ShowIngredients(dishes);
                         break;
+                    default:
+                        write("Wrong option typed");
+                        break;
                 }
             }
         }
@@ -117,10 +120,17 @@ namespace Restaurant
                 case 43:
                     dishes.Add(new Spinacino());
                     break;
+                default:
+                    write("Wrong option typed");
+                    break;
             }
         }
 
-        void bill(List<Restaurant.Interfaces.IDish> dish)
+        void Bill(List<Restaurant.Interfaces.IDish> dish)
+        {
+
+        }
+        void ShowNumberOFGuestToday()
         {
 
         }

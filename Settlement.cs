@@ -17,6 +17,14 @@ namespace Restaurant
                 }
             }
         }
+        public int Guests
+        {
+            get { return guests; }
+            set
+            {
+                guests++;
+            }
+        }
         public Settlement()
         {
         }

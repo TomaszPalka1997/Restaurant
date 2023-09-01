@@ -3,6 +3,7 @@ using Restaurant.Meals.Soup;
 using Restaurant.Meals.Appetizer;
 using Restaurant.Meals.Pasta;
 using Restaurant.Meals.Pizza;
+using Restaurant.Interfaces;
 
 namespace Restaurant
 {
@@ -47,13 +48,13 @@ namespace Restaurant
                     case 0:
                         return;
                     case 1:
-                        TakeOrder(dishes);
+                        TakeOrder();
                         break;
                     case 2:
                         //dish out;
                         break;
                     case 3:
-                        // check wallet
+                        ShowNumberOFGuestToday();
                         break;
                     case 4:
                         //take a complain
@@ -65,9 +66,10 @@ namespace Restaurant
                         write("Wrong option typed");
                         break;
                 }
+                //Console.Clear();
             }
         }
-        void TakeOrder(List<Restaurant.Interfaces.IDish> dish)
+        void TakeOrder()
         {
             write("-Appetizer:\n [11] Bruschetta\n [12] Cozza Al Limone");
             write("-Soup:\n [21]Soup of The Day\n [22] Tomato Soup");
@@ -83,9 +85,9 @@ namespace Restaurant
                     decision = int.Parse(rawDecision);
                 }
             }
-            catch
+            catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
 
             switch (decision)
@@ -122,17 +124,21 @@ namespace Restaurant
                     break;
                 default:
                     write("Wrong option typed");
-                    break;
+                    return;
             }
+            Bill(dishes.Last());
+
         }
 
-        void Bill(List<Restaurant.Interfaces.IDish> dish)
+        void Bill(Restaurant.Interfaces.IDish dish)
         {
-
+            settlement.Guests++;
+            settlement.Wallet = dish.Prize;
         }
         void ShowNumberOFGuestToday()
         {
-
+            Console.WriteLine($"Number of guests Today: {settlement.Guests}");
+            Console.WriteLine($"Income from guests Today: {settlement.Wallet}");
         }
         void ShowIngredients(List<Restaurant.Interfaces.IDish> dish)
         {

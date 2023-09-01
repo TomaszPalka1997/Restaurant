@@ -18,9 +18,6 @@ namespace Restaurant.Meals.Soup
             Ingredients.Add("water");
         }
 
-
-
-
     }
 }
 

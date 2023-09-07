@@ -3,6 +3,7 @@ using Restaurant.Meals.Soup;
 using Restaurant.Meals.Appetizer;
 using Restaurant.Meals.Pasta;
 using Restaurant.Meals.Pizza;
+using Restaurant.Interfaces;
 
 namespace Restaurant
 {
@@ -28,32 +29,19 @@ namespace Restaurant
                 write("[3] Check wallet");
                 write("[4] Take a complain");
                 write("[5] Show ingradients");
-                var rawDecision = Console.ReadLine();
-                int? decision = null;
-                try
-                {
-                    if (rawDecision != null)
-                    {
-                        decision = int.Parse(rawDecision);
-                    }
-                }
-                catch
-                {
 
-                }
-
-                switch (decision)
+                switch (TakeOptionInput())
                 {
                     case 0:
                         return;
                     case 1:
-                        TakeOrder(dishes);
+                        TakeOrder();
                         break;
                     case 2:
                         //dish out;
                         break;
                     case 3:
-                        // check wallet
+                        ShowNumberOFGuestToday();
                         break;
                     case 4:
                         //take a complain
@@ -61,34 +49,19 @@ namespace Restaurant
                     case 5:
                         ShowIngredients(dishes);
                         break;
-                    default:
-                        write("Wrong option typed");
-                        break;
                 }
+                //Console.Clear();
             }
         }
-        void TakeOrder(List<Restaurant.Interfaces.IDish> dish)
+        void TakeOrder()
         {
             write("-Appetizer:\n [11] Bruschetta\n [12] Cozza Al Limone");
             write("-Soup:\n [21]Soup of The Day\n [22] Tomato Soup");
             write("-Pizza: [31] Capricciosa\n [32] Margherita\n [33] Napoletana");
             write("-Pasta: [41] Bolognese\n [42] Carbonara\n [43] Spinacino");
 
-            var rawDecision = Console.ReadLine();
-            int? decision = null;
-            try
-            {
-                if (rawDecision != null)
-                {
-                    decision = int.Parse(rawDecision);
-                }
-            }
-            catch
-            {
 
-            }
-
-            switch (decision)
+            switch (TakeOptionInput())
             {
                 case 11:
                     dishes.Add(new Bruschetta());
@@ -120,19 +93,20 @@ namespace Restaurant
                 case 43:
                     dishes.Add(new Spinacino());
                     break;
-                default:
-                    write("Wrong option typed");
-                    break;
             }
+            Bill(dishes.Last());
+
         }
 
-        void Bill(List<Restaurant.Interfaces.IDish> dish)
+        void Bill(Restaurant.Interfaces.IDish dish)
         {
-
+            settlement.Guests = 1;
+            settlement.Wallet = dish.Prize;
         }
         void ShowNumberOFGuestToday()
         {
-
+            Console.WriteLine($"Number of guests Today: {settlement.Guests}");
+            Console.WriteLine($"Income from guests Today: {settlement.Wallet}");
         }
         void ShowIngredients(List<Restaurant.Interfaces.IDish> dish)
         {
@@ -140,6 +114,25 @@ namespace Restaurant
             {
                 dishh.ShowIngredients();
             }
+        }
+
+        int TakeOptionInput()
+        {
+
+            var rawDecision = Console.ReadLine();
+            int decision = 99;
+            try
+            {
+
+                decision = int.Parse(rawDecision);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Wrong option typped\n" + e.Message);
+            }
+            return decision;
+
         }
     }
 }

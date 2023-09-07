@@ -20,9 +20,11 @@ namespace Restaurant.Meals
             Console.Write($"\n Ingredients of {NameOfDish}: ");
             foreach (string element in Ingredients)
             {
-                Console.Write($"{element} ");
+                Console.Write($"{element}");
             }
+            Console.WriteLine("\n");
         }
+
 
         public Dish()
         {

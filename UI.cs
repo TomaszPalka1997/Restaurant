@@ -51,6 +51,9 @@ namespace Restaurant
                     case 5:
                         ShowIngredients(dishes);
                         break;
+                    default:
+                        write("Wrong option typped");
+                        break;
                 }
                 //Console.Clear();
             }
@@ -95,6 +98,9 @@ namespace Restaurant
                 case 43:
                     dishes.Add(new Spinacino());
                     break;
+                default:
+                    write("Wrong option typped");
+                    break;
             }
             Bill(dishes.Last());
 
@@ -131,7 +137,7 @@ namespace Restaurant
             }
             catch (Exception e)
             {
-                write("Wrong option typped\n" + e.Message);
+                write("\n" + e.Message);
                 logger.Error(e);
             }
             return decision;

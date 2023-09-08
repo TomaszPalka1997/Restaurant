@@ -14,9 +14,11 @@ namespace Restaurant
 
         private List<Interfaces.IDish> dishes = new List<Interfaces.IDish>();
         private Settlement settlement = new Settlement();
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         public UI()
         {
+            logger.Info("Application started");
         }
 
         public void menu()
@@ -100,13 +102,13 @@ namespace Restaurant
 
         void Bill(Restaurant.Interfaces.IDish dish)
         {
-            settlement.Guests = 1;
+            settlement.Guests++;
             settlement.Wallet = dish.Prize;
         }
         void ShowNumberOFGuestToday()
         {
-            Console.WriteLine($"Number of guests Today: {settlement.Guests}");
-            Console.WriteLine($"Income from guests Today: {settlement.Wallet}");
+            write($"Number of guests Today: {settlement.Guests}");
+            write($"Income from guests Today: {settlement.Wallet}");
         }
         void ShowIngredients(List<Restaurant.Interfaces.IDish> dish)
         {
@@ -129,7 +131,8 @@ namespace Restaurant
             }
             catch (Exception e)
             {
-                Console.WriteLine("Wrong option typped\n" + e.Message);
+                write("Wrong option typped\n" + e.Message);
+                logger.Error(e);
             }
             return decision;
 

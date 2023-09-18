@@ -13,6 +13,7 @@
     <None Remove="Meals\Pasta\" />
     <None Remove="Meals\Appetizer\" />
     <None Remove="Meals\Soup\" />
+    <None Remove="RestaurantDB\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Meals\" />
@@ -20,11 +21,19 @@
     <Folder Include="Meals\Pasta\" />
     <Folder Include="Meals\Appetizer\" />
     <Folder Include="Meals\Soup\" />
+    <Folder Include="RestaurantDB\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
     <PackageReference Include="NLog" Version="5.2.4" />
     <PackageReference Include="NLog.Schema" Version="5.2.4" />
     <PackageReference Include="NLog.Config" Version="4.7.15" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Configuration.ConfigurationBuilders.Environment" Version="3.0.0" />
+    <PackageReference Include="Extensions.Configuration" Version="0.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
   </ItemGroup>
 </Project>

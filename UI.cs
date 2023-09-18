@@ -30,7 +30,7 @@ namespace Restaurant
                 write("[2] Dish out");
                 write("[3] Check wallet");
                 write("[4] Take a complain");
-                write("[5] Show ingradients");
+                write("[5] Show ingredients");
 
                 switch (TakeOptionInput())
                 {
@@ -62,48 +62,56 @@ namespace Restaurant
         {
             write("-Appetizer:\n [11] Bruschetta\n [12] Cozza Al Limone");
             write("-Soup:\n [21]Soup of The Day\n [22] Tomato Soup");
-            write("-Pizza: [31] Capricciosa\n [32] Margherita\n [33] Napoletana");
-            write("-Pasta: [41] Bolognese\n [42] Carbonara\n [43] Spinacino");
+            write("-Pizza:\n [31] Capricciosa\n [32] Margherita\n [33] Napoletana");
+            write("-Pasta:\n [41] Bolognese\n [42] Carbonara\n [43] Spinacino");
 
 
             switch (TakeOptionInput())
             {
                 case 11:
                     dishes.Add(new Bruschetta());
+                    Bill(dishes.Last());
                     break;
                 case 12:
                     dishes.Add(new CozzeAlLimone());
+                    Bill(dishes.Last());
                     break;
                 case 21:
                     dishes.Add(new SoupOfTheDay());
+                    Bill(dishes.Last());
                     break;
                 case 22:
                     dishes.Add(new TomatoSoup());
+                    Bill(dishes.Last());
                     break;
                 case 31:
                     dishes.Add(new Capricciosa());
+                    Bill(dishes.Last());
                     break;
                 case 32:
                     dishes.Add(new Margherita());
+                    Bill(dishes.Last());
                     break;
                 case 33:
                     dishes.Add(new Napoletana());
+                    Bill(dishes.Last());
                     break;
                 case 41:
                     dishes.Add(new Bolognese());
+                    Bill(dishes.Last());
                     break;
                 case 42:
                     dishes.Add(new Carbonara());
+                    Bill(dishes.Last());
                     break;
                 case 43:
                     dishes.Add(new Spinacino());
+                    Bill(dishes.Last());
                     break;
                 default:
                     write("Wrong option typped");
                     break;
             }
-            Bill(dishes.Last());
-
         }
 
         void Bill(Restaurant.Interfaces.IDish dish)

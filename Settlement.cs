@@ -3,8 +3,10 @@ namespace Restaurant
 {
     public class Settlement
     {
+        public int Id { get; set; }
         private decimal wallet = 0;
         private int guests = 0;
+        private DateTime date = DateTime.Now;
 
         public decimal Wallet
         {
@@ -25,6 +27,12 @@ namespace Restaurant
                 guests++;
             }
         }
+        public DateTime Date
+        {
+            get { return date; }
+
+        }
+
         public Settlement()
         {
         }

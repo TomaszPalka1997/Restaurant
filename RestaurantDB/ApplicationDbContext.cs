@@ -7,8 +7,8 @@ namespace Restaurant
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<DailySettlement> dailySettlements { get; set; }
-        public DbSet<Ingredient> ingredient { get; set; }
+        public DbSet<DailySettlement> DailySettlements { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
 
         public ApplicationDbContext()
         {
@@ -17,19 +17,13 @@ namespace Restaurant
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            var builderIngredient = new ConfigurationBuilder()
-                .AddJsonFile("StoreRoom.json", true, true);
-
-            var builderSettlement = new ConfigurationBuilder()
-                .AddJsonFile("StoreRoom.json", true, true);
-
-            var configIngredient = builderIngredient.Build();
-            var configSettlement = builderSettlement.Build();
 
 
             optionsBuilder
-                .UseSqlServer(configIngredient["ConnectrionStringIngredient"])
-                .UseSqlServer(configSettlement["ConnectrionStringSettlement"]);
+                .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, Microsoft.Extensions.Logging.LogLevel.Information)
+                .EnableSensitiveDataLogging()
+                .UseSqlServer("Server=localhost;Database=msdb;User Id=sa;Password=Popcorn1;Encrypt=false");
+
 
         }
 

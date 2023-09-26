@@ -3,7 +3,11 @@ using Restaurant.Meals.Soup;
 using Restaurant.Meals.Appetizer;
 using Restaurant.Meals.Pasta;
 using Restaurant.Meals.Pizza;
+using Restaurant.RestaurantDB;
 using Restaurant.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using System.Text;
 
 namespace Restaurant
 {
@@ -14,6 +18,7 @@ namespace Restaurant
 
         private List<Interfaces.IDish> dishes = new List<Interfaces.IDish>();
         private Settlement settlement = new Settlement();
+
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         public UI()
@@ -30,11 +35,13 @@ namespace Restaurant
                 write("[2] Dish out");
                 write("[3] Check wallet");
                 write("[4] Take a complain");
-                write("[5] Show ingredients");
+                write("[5] Take dalivery of ingredients");
+                write("[6] Show ingredients");
 
                 switch (TakeOptionInput())
                 {
                     case 0:
+                        SaveChangesBeforeExit();
                         return;
                     case 1:
                         TakeOrder();
@@ -43,7 +50,7 @@ namespace Restaurant
                         //dish out;
                         break;
                     case 3:
-                        ShowNumberOFGuestToday();
+                        Wallet();
                         break;
                     case 4:
                         //take a complain
@@ -119,10 +126,27 @@ namespace Restaurant
             settlement.Guests++;
             settlement.Wallet = dish.Prize;
         }
-        void ShowNumberOFGuestToday()
+        async void Wallet()
         {
+            write($"Today");
             write($"Number of guests Today: {settlement.Guests}");
             write($"Income from guests Today: {settlement.Wallet}");
+            write($"Date: {settlement.Date}");
+
+            var s = new List<DailySettlement>();
+            using (var context = new ApplicationDbContext())
+            {
+                write($"Todaadsafsdfy");
+                s = await context.DailySettlements.ToListAsync();
+                write($"Todaadsafsdfy");
+                foreach (var item in s)
+                {
+                    write($"Number of guests : {item.NumberOfGuests}");
+                    write($"Income from guests : {item.Wallet}");
+                    write($"Date: {item.Date}");
+                }
+            }
+
         }
         void ShowIngredients(List<Restaurant.Interfaces.IDish> dish)
         {
@@ -150,6 +174,36 @@ namespace Restaurant
             }
             return decision;
 
+        }
+
+        async void SaveChangesBeforeExit()
+        {
+            var dailySettlement = new DailySettlement { Wallet = settlement.Wallet, NumberOfGuests = settlement.Guests };
+            Console.WriteLine($"id= {dailySettlement.Id}");
+            using (var context = new ApplicationDbContext())
+            {
+                //zrobic obiekt dailysattement, dodac go do bazy i zapisac
+
+
+
+
+
+                //dodawanie
+                await context.DailySettlements.AddAsync(dailySettlement);
+
+                //usuwanie
+                //context.Books.Remove(new Book { Id = 15 });
+
+                try
+                {
+                    await context.SaveChangesAsync();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine($"\n\n{e.InnerException}\n\n");
+                }
+            }
         }
     }
 }

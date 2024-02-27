@@ -7,6 +7,7 @@ namespace Restaurant
 {
     public class ApplicationDbContext : DbContext
     {
+
         public DbSet<DailySettlement> DailySettlements { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
 
@@ -16,6 +17,11 @@ namespace Restaurant
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            /*var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.json", false, true);
+            var config = builder.Build();
+
+            Console.WriteLine($"\nHello, {config["ConnectionStrings"]} world!\n");
+            */
 
 
 
@@ -28,9 +34,7 @@ namespace Restaurant
         }
 
         // Method to configure model with Fluent API
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-        }
+
     }
 }
 

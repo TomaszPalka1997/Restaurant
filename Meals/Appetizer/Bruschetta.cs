@@ -7,7 +7,7 @@ namespace Restaurant.Meals.Appetizer
     {
         public override string NameOfDish { get; set; } = "Bruschetta";
         public override bool IsVegan { get; set; } = true;
-        public override decimal Prize { get; set; } = (decimal)12.99;
+        public override decimal Price { get; set; } = (decimal)10;
         public override List<string> Ingredients { get; set; }
         public bool WithBread { get; set; } = true;
         public override float Portion { get; set; } = 100;
@@ -18,7 +18,7 @@ namespace Restaurant.Meals.Appetizer
         {
             Ingredients = new List<string>();
             Ingredients.Add("tomato");
-            Ingredients.Add("water");
+            Ingredients.Add("flour");
         }
 
 

@@ -5,23 +5,18 @@ namespace Restaurant.Meals.Pizza
     {
         public override string NameOfDish { get; set; } = "Capricciosa";
         public override bool IsVegan { get; set; } = false;
-        public override decimal Prize { get; set; } = (decimal)20.99;
+        public override decimal Price { get; set; } = (decimal)20.99;
         public override List<string> Ingredients { get; set; }
         public override int Portion { get; set; } = 32;
 
         public Capricciosa()
         {
             Ingredients = new List<string>();
-            SetIngradients();
+            Ingredients.Add("flour");
+            Ingredients.Add("cheese");
+            Ingredients.Add("meat");
+
         }
-
-        public void SetIngradients()
-        {
-            Ingredients.Add("tomato");
-            Ingredients.Add("water");
-        }
-
-
     }
 }
 

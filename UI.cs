@@ -8,6 +8,8 @@ using Restaurant.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Restaurant.Meals;
 
 namespace Restaurant
 {
@@ -16,7 +18,7 @@ namespace Restaurant
         private delegate void Write(string message);
         private Write write = new Write(Console.WriteLine);
 
-        private List<Interfaces.IDish> dishes = new List<Interfaces.IDish>();
+        //private List<Interfaces.IDish> dishes = new List<Interfaces.IDish>();
         private Settlement settlement = new Settlement();
 
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
@@ -32,11 +34,10 @@ namespace Restaurant
             {
                 write("[0] Quit");
                 write("[1] Take order");
-                write("[2] Dish out");
+                write("[2] Take suplly");
                 write("[3] Check wallet");
                 write("[4] Take a complain");
-                write("[5] Take dalivery of ingredients");
-                write("[6] Show ingredients");
+                write("[5] Show ingredients in magasine");
 
                 switch (TakeOptionInput())
                 {
@@ -47,7 +48,7 @@ namespace Restaurant
                         TakeOrder();
                         break;
                     case 2:
-                        //dish out;
+                        TakeSupply();
                         break;
                     case 3:
                         Wallet();
@@ -56,75 +57,87 @@ namespace Restaurant
                         //take a complain
                         break;
                     case 5:
-                        ShowIngredients(dishes);
+                        ShowMagasine();
                         break;
                     default:
                         write("Wrong option typped");
                         break;
                 }
-                //Console.Clear();
+
             }
         }
         void TakeOrder()
         {
-            write("-Appetizer:\n [11] Bruschetta\n [12] Cozza Al Limone");
-            write("-Soup:\n [21]Soup of The Day\n [22] Tomato Soup");
-            write("-Pizza:\n [31] Capricciosa\n [32] Margherita\n [33] Napoletana");
-            write("-Pasta:\n [41] Bolognese\n [42] Carbonara\n [43] Spinacino");
+            var x = true;
+            var dishes = new List<Interfaces.IDish>();
 
-
-            switch (TakeOptionInput())
+            while (x)
             {
-                case 11:
-                    dishes.Add(new Bruschetta());
-                    Bill(dishes.Last());
-                    break;
-                case 12:
-                    dishes.Add(new CozzeAlLimone());
-                    Bill(dishes.Last());
-                    break;
-                case 21:
-                    dishes.Add(new SoupOfTheDay());
-                    Bill(dishes.Last());
-                    break;
-                case 22:
-                    dishes.Add(new TomatoSoup());
-                    Bill(dishes.Last());
-                    break;
-                case 31:
-                    dishes.Add(new Capricciosa());
-                    Bill(dishes.Last());
-                    break;
-                case 32:
-                    dishes.Add(new Margherita());
-                    Bill(dishes.Last());
-                    break;
-                case 33:
-                    dishes.Add(new Napoletana());
-                    Bill(dishes.Last());
-                    break;
-                case 41:
-                    dishes.Add(new Bolognese());
-                    Bill(dishes.Last());
-                    break;
-                case 42:
-                    dishes.Add(new Carbonara());
-                    Bill(dishes.Last());
-                    break;
-                case 43:
-                    dishes.Add(new Spinacino());
-                    Bill(dishes.Last());
-                    break;
-                default:
-                    write("Wrong option typped");
-                    break;
+                write("-Appetizer:\n [11] Bruschetta\n [12] Cozza Al Limone");
+                write("-Soup:\n [21]Soup of The Day\n [22] Tomato Soup");
+                write("-Pizza:\n [31] Capricciosa\n [32] Margherita\n [33] Napoletana");
+                write("-Pasta:\n [41] Bolognese\n [42] Carbonara\n [43] Spinacino");
+                write("[99] Information about order");
+
+
+                switch (TakeOptionInput())
+                {
+                    case 11:
+                        dishes.Add(new Bruschetta());
+                        CheckIngredients(dishes.Last());
+                        break;
+                    case 12:
+                        dishes.Add(new CozzeAlLimone());
+                        break;
+                    case 21:
+                        dishes.Add(new SoupOfTheDay());
+                        break;
+                    case 22:
+                        dishes.Add(new TomatoSoup());
+                        break;
+                    case 31:
+                        dishes.Add(new Capricciosa());
+                        break;
+                    case 32:
+                        dishes.Add(new Margherita());
+                        break;
+                    case 33:
+                        dishes.Add(new Napoletana());
+                        break;
+                    case 41:
+                        dishes.Add(new Bolognese());
+                        break;
+                    case 42:
+                        dishes.Add(new Carbonara());
+                        break;
+                    case 43:
+                        dishes.Add(new Spinacino());
+                        break;
+                    case 99:
+                        ShowInfoAboutDish(dishes);
+                        break;
+                    default:
+                        write("Wrong option typped");
+                        break;
+                }
+                write("Do you want to order something else?\n[1] Yes\n[0] No");
+                if (TakeOptionInput() == 0)
+                {
+                    x = false;
+                }
+
+                foreach (var s in dishes)
+                {
+                    Bill(s);
+                }
+
             }
         }
 
         void Bill(Restaurant.Interfaces.IDish dish)
         {
             settlement.Guests++;
-            settlement.Wallet = dish.Prize;
+            settlement.Wallet = dish.Price;
         }
         async void Wallet()
         {
@@ -136,23 +149,79 @@ namespace Restaurant
             var s = new List<DailySettlement>();
             using (var context = new ApplicationDbContext())
             {
-                write($"Todaadsafsdfy");
                 s = await context.DailySettlements.ToListAsync();
-                write($"Todaadsafsdfy");
+
                 foreach (var item in s)
                 {
+                    write($"\nDate: {item.Date}");
                     write($"Number of guests : {item.NumberOfGuests}");
                     write($"Income from guests : {item.Wallet}");
-                    write($"Date: {item.Date}");
+                    write($"Id: {item.Id}");
                 }
             }
 
         }
-        void ShowIngredients(List<Restaurant.Interfaces.IDish> dish)
+        void ShowInfoAboutDish(List<Restaurant.Interfaces.IDish> dish)
         {
             foreach (Restaurant.Interfaces.IDish dishh in dish)
             {
-                dishh.ShowIngredients();
+                dishh.ShowInfoAboutDish();
+            }
+            write($"Bill total: {dish.Sum(e => e.Price)}");
+        }
+        async void CheckIngredients(Restaurant.Interfaces.IDish dish)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var ingredientsInMagazineList = await context.Ingredients.ToListAsync();
+                //var ingredientsInMagazineMinusNewDish;
+                try
+                {
+                    foreach (var x in dish.Ingredients)
+                    {
+                        List<Ingredient> ingredientsInMagazineMinusNewDish = ingredientsInMagazineList.Where(e => e.Name == x & e.Number > 0).ToList();
+
+                        //context.Ingredients.Remove(ingredientsInMagazineList.First(e => e.Name == x));
+                        //context.Ingredients.AddAsync(ingredientsInMagazineMinusNewDish.Foreach(e => e));
+
+                        if (ingredientsInMagazineList.Where(e => e.Number > 90) != null)
+                        {
+                            Console.WriteLine($"There is NOOOO missing {x}");
+                            //Console.WriteLine(ingredientsInMagazineList.Select(e => e.Number));
+
+                        }
+                        else if (ingredientsInMagazineList.Where(e => e.Name == x) != null)
+                        {
+                            Console.WriteLine($"There is missing {x}");
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
+            }
+        }
+        void DishOut()
+        {
+
+        }
+
+        async void ShowMagasine()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var ingredientsInMagazineList = await context.Ingredients.ToListAsync();
+
+                foreach (var x in ingredientsInMagazineList)
+                {
+                    Console.WriteLine($"Name: {x.Name} Number: {x.Number}\n");
+                }
             }
         }
 
@@ -178,21 +247,15 @@ namespace Restaurant
 
         async void SaveChangesBeforeExit()
         {
-            var dailySettlement = new DailySettlement { Wallet = settlement.Wallet, NumberOfGuests = settlement.Guests };
-            Console.WriteLine($"id= {dailySettlement.Id}");
             using (var context = new ApplicationDbContext())
             {
-                //zrobic obiekt dailysattement, dodac go do bazy i zapisac
 
+                List<DailySettlement> dailySettlementsList = await context.DailySettlements.ToListAsync();
 
-
-
-
-                //dodawanie
-                await context.DailySettlements.AddAsync(dailySettlement);
-
-                //usuwanie
-                //context.Books.Remove(new Book { Id = 15 });
+                if (settlement.Guests != 0)
+                {
+                    await context.DailySettlements.AddAsync(CheckAndOrganizeDuplicates(dailySettlementsList, context));
+                }
 
                 try
                 {
@@ -204,6 +267,52 @@ namespace Restaurant
                     Console.WriteLine($"\n\n{e.InnerException}\n\n");
                 }
             }
+        }
+
+        DailySettlement CheckAndOrganizeDuplicates(List<DailySettlement> dailySettlementsList, ApplicationDbContext context)
+        {
+            List<DailySettlement> dailySettlementsDuplicatesList = dailySettlementsList.Where(e => DateOnly.FromDateTime(e.Date) == DateOnly.FromDateTime(settlement.Date)).ToList();
+
+
+            int guests = dailySettlementsDuplicatesList.Sum(e => e.NumberOfGuests) + settlement.Guests;
+            decimal wallet = dailySettlementsDuplicatesList.Sum(e => e.Wallet) + settlement.Wallet;
+
+
+            foreach (var s in dailySettlementsDuplicatesList)
+            {
+                context.Remove(s);
+            }
+
+
+            return new DailySettlement { Wallet = wallet, NumberOfGuests = guests, Date = settlement.Date };
+        }
+        async void TakeSupply()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+
+                context.Add(new Ingredient { Name = "clam", Number = 10 });
+                context.Add(new Ingredient { Name = "lime", Number = 10 });
+                context.Add(new Ingredient { Name = "flour", Number = 10 });
+                context.Add(new Ingredient { Name = "tomato", Number = 10 });
+                context.Add(new Ingredient { Name = "pasta", Number = 10 });
+                context.Add(new Ingredient { Name = "meat", Number = 10 });
+                context.Add(new Ingredient { Name = "cheese", Number = 10 });
+                context.Add(new Ingredient { Name = "spinach", Number = 10 });
+
+
+                try
+                {
+                    await context.SaveChangesAsync();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine($"\n\n{e.InnerException}\n\n");
+                }
+
+            }
+
         }
     }
 }

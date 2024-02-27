@@ -5,10 +5,10 @@ namespace Restaurant.Interfaces
     {
         public string NameOfDish { get; set; }
         public bool IsVegan { get; set; }
-        public decimal Prize { get; set; }
+        public decimal Price { get; set; }
         public List<string> Ingredients { get; set; }
         public void PrepareADish();
-        public void ShowIngredients();
+        public void ShowInfoAboutDish();
     }
 }
 

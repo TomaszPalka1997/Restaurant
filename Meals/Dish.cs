@@ -5,7 +5,7 @@ namespace Restaurant.Meals
     {
         public abstract string NameOfDish { get; set; }
         public abstract bool IsVegan { get; set; }
-        public abstract decimal Prize { get; set; }
+        public abstract decimal Price { get; set; }
         public abstract List<string> Ingredients { get; set; }
         public abstract T Portion { get; set; }
 
@@ -15,7 +15,7 @@ namespace Restaurant.Meals
         {
             Console.WriteLine($"{NameOfDish} Prepared");
         }
-        public void ShowIngredients()
+        public void ShowInfoAboutDish()
         {
             Console.Write($"\n Ingredients of {NameOfDish}: ");
             foreach (string element in Ingredients)
@@ -23,6 +23,8 @@ namespace Restaurant.Meals
                 Console.Write($"{element}");
             }
             Console.WriteLine("\n");
+            Console.WriteLine($"Is {NameOfDish} Vegan?: {IsVegan}");
+            Console.WriteLine($"Price: {Price}");
         }
 
 

@@ -37,7 +37,7 @@ namespace Restaurant
                 write("[2] Take suplly");
                 write("[3] Check wallet");
                 write("[4] Take a complain");
-                write("[5] Show ingredients in magazine");
+                write("[5] Show ingredients in magasine");
 
                 switch (TakeOptionInput())
                 {
@@ -57,7 +57,7 @@ namespace Restaurant
                         //take a complain
                         break;
                     case 5:
-                        //ShowInfoAboutDish(dishes);
+                        ShowMagasine();
                         break;
                     default:
                         write("Wrong option typped");
@@ -210,6 +210,19 @@ namespace Restaurant
         void DishOut()
         {
 
+        }
+
+        async void ShowMagasine()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var ingredientsInMagazineList = await context.Ingredients.ToListAsync();
+
+                foreach (var x in ingredientsInMagazineList)
+                {
+                    Console.WriteLine($"Name: {x.Name} Number: {x.Number}\n");
+                }
+            }
         }
 
         int TakeOptionInput()

@@ -249,16 +249,15 @@ namespace Restaurant
         {
             using (var context = new ApplicationDbContext())
             {
-
-                List<DailySettlement> dailySettlementsList = await context.DailySettlements.ToListAsync();
-
-                if (settlement.Guests != 0)
-                {
-                    await context.DailySettlements.AddAsync(CheckAndOrganizeDuplicates(dailySettlementsList, context));
-                }
-
                 try
                 {
+                    List<DailySettlement> dailySettlementsList = await context.DailySettlements.ToListAsync();
+
+                    if (settlement.Guests != 0)
+                    {
+                        await context.DailySettlements.AddAsync(CheckAndOrganizeDuplicates(dailySettlementsList, context));
+                    }
+
                     await context.SaveChangesAsync();
                 }
                 catch (Exception e)
@@ -290,19 +289,12 @@ namespace Restaurant
         {
             using (var context = new ApplicationDbContext())
             {
-
-                context.Add(new Ingredient { Name = "clam", Number = 10 });
-                context.Add(new Ingredient { Name = "lime", Number = 10 });
-                context.Add(new Ingredient { Name = "flour", Number = 10 });
-                context.Add(new Ingredient { Name = "tomato", Number = 10 });
-                context.Add(new Ingredient { Name = "pasta", Number = 10 });
-                context.Add(new Ingredient { Name = "meat", Number = 10 });
-                context.Add(new Ingredient { Name = "cheese", Number = 10 });
-                context.Add(new Ingredient { Name = "spinach", Number = 10 });
-
-
                 try
                 {
+                    foreach (var ingrad in context.Ingredients)
+                    {
+                        ingrad.Number += 10;
+                    }
                     await context.SaveChangesAsync();
                 }
                 catch (Exception e)

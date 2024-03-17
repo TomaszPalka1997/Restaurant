@@ -15,8 +15,6 @@ namespace Restaurant
 {
     public class UI
     {
-        private delegate void Write(string message);
-        private Write write = new Write(Console.WriteLine);
 
         //private List<Interfaces.IDish> dishes = new List<Interfaces.IDish>();
         private Settlement settlement = new Settlement();
@@ -32,12 +30,12 @@ namespace Restaurant
         {
             while (true)
             {
-                write("[0] Quit");
-                write("[1] Take order");
-                write("[2] Take suplly");
-                write("[3] Check wallet");
-                write("[4] Take a complain");
-                write("[5] Show ingredients in magasine");
+                Console.WriteLine("[0] Quit");
+                Console.WriteLine("[1] Take order");
+                Console.WriteLine("[2] Take suplly");
+                Console.WriteLine("[3] Check wallet");
+                Console.WriteLine("[4] Take a complain");
+                Console.WriteLine("[5] Show ingredients in magasine");
 
                 switch (TakeOptionInput())
                 {
@@ -60,7 +58,7 @@ namespace Restaurant
                         ShowMagasine();
                         break;
                     default:
-                        write("Wrong option typped");
+                        Console.WriteLine("Wrong option typped");
                         break;
                 }
 
@@ -73,11 +71,11 @@ namespace Restaurant
 
             while (x)
             {
-                write("-Appetizer:\n [11] Bruschetta\n [12] Cozza Al Limone");
-                write("-Soup:\n [21]Soup of The Day\n [22] Tomato Soup");
-                write("-Pizza:\n [31] Capricciosa\n [32] Margherita\n [33] Napoletana");
-                write("-Pasta:\n [41] Bolognese\n [42] Carbonara\n [43] Spinacino");
-                write("[99] Information about order");
+                Console.WriteLine("-Appetizer:\n [11] Bruschetta\n [12] Cozza Al Limone");
+                Console.WriteLine("-Soup:\n [21]Soup of The Day\n [22] Tomato Soup");
+                Console.WriteLine("-Pizza:\n [31] Capricciosa\n [32] Margherita\n [33] Napoletana");
+                Console.WriteLine("-Pasta:\n [41] Bolognese\n [42] Carbonara\n [43] Spinacino");
+                Console.WriteLine("[99] Information about order");
 
 
                 switch (TakeOptionInput())
@@ -85,6 +83,7 @@ namespace Restaurant
                     case 11:
                         dishes.Add(new Bruschetta());
                         CheckIngredients(dishes.Last());
+                        DishOut();
                         break;
                     case 12:
                         dishes.Add(new CozzeAlLimone());
@@ -117,10 +116,10 @@ namespace Restaurant
                         ShowInfoAboutDish(dishes);
                         break;
                     default:
-                        write("Wrong option typped");
+                        Console.WriteLine("Wrong option typped");
                         break;
                 }
-                write("Do you want to order something else?\n[1] Yes\n[0] No");
+                Console.WriteLine("Do you want to order something else?\n[1] Yes\n[0] No");
                 if (TakeOptionInput() == 0)
                 {
                     x = false;
@@ -141,10 +140,10 @@ namespace Restaurant
         }
         async void Wallet()
         {
-            write($"Today");
-            write($"Number of guests Today: {settlement.Guests}");
-            write($"Income from guests Today: {settlement.Wallet}");
-            write($"Date: {settlement.Date}");
+            Console.WriteLine($"Today");
+            Console.WriteLine($"Number of guests Today: {settlement.Guests}");
+            Console.WriteLine($"Income from guests Today: {settlement.Wallet}");
+            Console.WriteLine($"Date: {settlement.Date}");
 
             var s = new List<DailySettlement>();
             using (var context = new ApplicationDbContext())
@@ -153,10 +152,10 @@ namespace Restaurant
 
                 foreach (var item in s)
                 {
-                    write($"\nDate: {item.Date}");
-                    write($"Number of guests : {item.NumberOfGuests}");
-                    write($"Income from guests : {item.Wallet}");
-                    write($"Id: {item.Id}");
+                    Console.WriteLine($"\nDate: {item.Date}");
+                    Console.WriteLine($"Number of guests : {item.NumberOfGuests}");
+                    Console.WriteLine($"Income from guests : {item.Wallet}");
+                    Console.WriteLine($"Id: {item.Id}");
                 }
             }
 
@@ -167,9 +166,9 @@ namespace Restaurant
             {
                 dishh.ShowInfoAboutDish();
             }
-            write($"Bill total: {dish.Sum(e => e.Price)}");
+            Console.WriteLine($"Bill total: {dish.Sum(e => e.Price)}");
         }
-        async void CheckIngredients(Restaurant.Interfaces.IDish dish)
+        async void CheckIngredients(Restaurant.Interfaces.IDish dish)// and remove to do: rename and reorganize functions, deletaing ingradiens dish out i check ingradients
         {
             using (var context = new ApplicationDbContext())
             {
@@ -238,7 +237,7 @@ namespace Restaurant
             }
             catch (Exception e)
             {
-                write("\n" + e.Message);
+                Console.WriteLine("\n" + e.Message);
                 logger.Error(e);
             }
             return decision;

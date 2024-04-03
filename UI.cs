@@ -49,6 +49,7 @@ namespace Restaurant
                         TakeSupply();
                         break;
                     case 3:
+                        Thread.Sleep(1000);
                         Wallet();
                         break;
                     case 4:
@@ -168,7 +169,7 @@ namespace Restaurant
             }
             Console.WriteLine($"Bill total: {dish.Sum(e => e.Price)}");
         }
-        async void CheckIngredients(Restaurant.Interfaces.IDish dish)// and remove to do: rename and reorganize functions, deletaing ingradiens dish out i check ingradients
+        async void CheckIngredients(Restaurant.Interfaces.IDish dish)// and remove to do: rename and reorganize functions, deletaing ingradiens dish out i check ingradientss
         {
             using (var context = new ApplicationDbContext())
             {
